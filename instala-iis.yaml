@@ -28,5 +28,4 @@
     win_uri:
           url: "http://{{ inventory_hostname }}"
           return_content: yes
-    register: result
-    failed_when: "'Yay! Simple Ansible deployed IIS server ...' not in result.content"
+    
