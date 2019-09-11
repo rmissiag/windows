@@ -17,9 +17,8 @@
     win_firewall_rule:
           name: "{{ inventory_hostname }}_80"
           enable: yes
-          state: block
           localport: 80
-          action: Deny
+          action: block
           direction: In
           protocol: Tcp
 
