@@ -9,12 +9,12 @@
           include_sub_features: yes
           include_management_tools: no
 
-  - name: Move local web index file to {{ inventory_hostname }}
+  - name: Move o arquivo index html local para o {{ inventory_hostname }}
     win_copy:
           src: files/index.html
           dest: 'C:\\inetpub\\wwwroot\\index.html'
 
-  - name: Open firewall port 80 for the IIS web server on {{ inventory_hostname }}
+  - name: Libera a porta de Firewall 80 para o servidor {{ inventory_hostname }}
     win_firewall_rule:
           name: "{{ inventory_hostname }}_80"
           enable: yes
@@ -24,9 +24,9 @@
           direction: In
           protocol: Tcp
 
-  - name: Testing IIS is properly configured and running on {{ inventory_hostname }}
+  - name: Testa se o IIS esta funcionando da maneira adequada {{ inventory_hostname }}
     win_uri:
-          url: "http://{{ ansible_fqdn }}"
+          url: "http://{{ inventory_hostname }}"
           return_content: yes
           register: result
           failed_when: "'Yay! Simple Ansible deployed IIS server ...' not in result.content"
