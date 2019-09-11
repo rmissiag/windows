@@ -1,0 +1,26 @@
+- name: Remove IIS no Windows
+  hosts: all
+  tasks:
+  - name: Remove IIS feature no {{ inventory_hostname }}
+    win_feature:
+          name: Web-Server
+          state: absent
+          include_sub_features: yes
+          include_management_tools: no
+
+  - name: Remove o aruivo index html local para o {{ inventory_hostname }}
+    win_file:
+          path: 'C:\\inetpub\\wwwroot\\index.html'
+          state: absent
+
+  - name: Bloqueia a porta de Firewall 80 para o servidor {{ inventory_hostname }}
+    win_firewall_rule:
+          name: "{{ inventory_hostname }}_80"
+          enable: yes
+          state: present
+          localport: 80
+          action: Deny
+          direction: In
+          protocol: Tcp
+
+  
