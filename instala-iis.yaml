@@ -2,7 +2,7 @@
   hosts: all
   tasks:
   - name: Install IIS feature on {{ inventory_hostname }}
-        win_feature:
+    win_feature:
           name: Web-Server
           state: present
           restart: no
@@ -10,12 +10,12 @@
           include_management_tools: no
 
   - name: Move local web index file to {{ inventory_hostname }}
-        win_copy:
+    win_copy:
           src: files/index.html
           dest: 'C:\\inetpub\\wwwroot\\index.html'
 
   - name: Open firewall port 80 for the IIS web server on {{ inventory_hostname }}
-        win_firewall_rule:
+    win_firewall_rule:
           name: "{{ inventory_hostname }}_80"
           enable: yes
           state: present
@@ -25,7 +25,7 @@
           protocol: Tcp
 
   - name: Testing IIS is properly configured and running on {{ inventory_hostname }}
-        win_uri:
+    win_uri:
           url: "http://{{ ansible_fqdn }}"
           return_content: yes
           register: result
